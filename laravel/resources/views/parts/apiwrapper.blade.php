@@ -13,16 +13,16 @@ class TSAPI {
     request.send('savedata='+JSON.stringify(data));
   }
 
-  cloudLoad() {
+  cloudLoad(callback) {
     let request = new XMLHttpRequest();
     request.open('GET', '/clientapi/cloudsave', true);
     request.onload = function() {
       if (this.status >= 200 && this.status < 400) {
         let r = JSON.parse(this.response);
         if (r.success) {
-          return r.cloudsave;
+          callback(JSON.parse(r.cloudsave));
         } else {
-          console.log('error: '+r.error);
+          callback(r);
         }
       } else {
         console.log('error');

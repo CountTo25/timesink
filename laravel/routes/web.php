@@ -53,8 +53,9 @@ Route::middleware(['auth'])->group(function(){
   Route::post('dev/game/{id}/update', [DevController::class, 'pushUpdate']);
 });
 
+Route::get('/clientapi/{method}', ClientApiController::class);
+Route::post('/clientapi/{method}', ClientApiPostController::class);
+
 Route::middleware(['auth'])->group(function() {
   //TODO: auth-soft without redirect to auth
-  Route::get('/clientapi/{method}', ClientApiController::class);
-  Route::post('/clientapi/{method}', ClientApiPostController::class);
 });

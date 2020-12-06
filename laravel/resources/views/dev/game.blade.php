@@ -12,7 +12,7 @@
       <label for='html'>index.html</label>
       <input type="file" name="html" accept="text/html" required>
       <label for='js'>.js files</label>
-      <input type="file" name="js[]" accept="application/javascript" multiple>
+      <input type="file" name="js[]" accept="text/javascript" multiple>
       <label for='css'>.css files</label>
       <input type="file" name="css[]" accept="text/css" multiple>
       <input type='submit' value='push an update'>

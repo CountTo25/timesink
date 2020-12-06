@@ -19,7 +19,7 @@
 
 <script>
 $(document).ready(()=>{
-  $('#gameframe').attr('src', '{{$game->view()}}');
+  $('#gameframe').attr('src', '{{$game->view()}}?rand='+new Date()/1);
 });
 
 //clean up?

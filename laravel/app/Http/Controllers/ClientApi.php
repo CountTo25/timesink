@@ -10,7 +10,7 @@ use App\Models\Game;
 class ClientApi extends Controller
 {
     public function __invoke($method, Request $request) {
-      if (!Auth::check()) return 'Player not logged in'; //tbh there's middleware remove it on cleanup pass
+      if (!Auth::check()) return response()->json(['error'=>'Player not logged in']);
       switch($method){
         case 'cloudsave':
           $pattern = '/\/games\/(.*?)\//';
