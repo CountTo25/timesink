@@ -22,7 +22,7 @@ class ClientApiPost extends Controller
         $save = Cloudsave::where('for_game', $id)->where('for_user', Auth::user()->id)->first();
         if ($save === null) {
           $save = new Cloudsave();
-          $save->for_game = 1;
+          $save->for_game = $id;
           $save->for_user = Auth::user()->id;
         }
         $save->data = $dt;
