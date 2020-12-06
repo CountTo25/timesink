@@ -24,4 +24,9 @@ class GameProcessor
       $isolate = preg_replace($rx, $nstring, $isolate);
       return $isolate;
     }
+
+    public static function addAPI($gfile) {
+      $gfile = view('parts.apiwrapper').$gfile;
+      return $gfile;
+    }
 }

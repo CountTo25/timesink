@@ -6,6 +6,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Dev as DevController;
+use App\Http\Controllers\ClientApi as ClientApiController;
+use App\Http\Controllers\ClientApiPost as ClientApiPostController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,4 +51,10 @@ Route::middleware(['auth'])->group(function(){
   Route::get('/dev', [DevController::class, 'home']);
   Route::get('/dev/game/{id}', [DevController::class, 'game']);
   Route::post('dev/game/{id}/update', [DevController::class, 'pushUpdate']);
+});
+
+Route::middleware(['auth'])->group(function() {
+  //TODO: auth-soft without redirect to auth
+  Route::get('/clientapi/{method}', ClientApiController::class);
+  Route::post('/clientapi/{method}', ClientApiPostController::class);
 });

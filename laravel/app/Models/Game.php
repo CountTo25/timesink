@@ -25,10 +25,10 @@ class Game extends Model
 
     function view() {
       //shows game for player
-      $fref = "/$this->shortlink/$this->version/";
+      $fref = "$this->shortlink/$this->version";
       if (Storage::disk('games')->exists($fref)) {
         //find index;
-        if (Storage::disk('games')->exists($fref.'index.html')) {
+        if (Storage::disk('games')->exists($fref.'/index.html')) {
           echo "/games/$fref/index.html";
         } else {
           echo 'cant find index';

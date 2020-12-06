@@ -40,6 +40,8 @@ class Dev extends Controller
       Storage::disk('games')->makeDirectory("/$g->shortlink/$ver");
 
       $isolate = file_get_contents($html);
+      $isolate = GameCooker::processLS($isolate, $g->shortlink);
+      $isolate = GameCooker::addAPI($isolate);
       file_put_contents($html,GameCooker::processLS($isolate, $g->shortlink));
       $path = "/$g->shortlink/$ver";
       Storage::disk('games')->putFileAs($path, $html, 'index.html');
