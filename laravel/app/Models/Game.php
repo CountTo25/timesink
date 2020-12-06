@@ -29,33 +29,7 @@ class Game extends Model
       if (Storage::disk('games')->exists($fref)) {
         //find index;
         if (Storage::disk('games')->exists($fref.'index.html')) {
-          //game ok, embeed it;
-          $index = Storage::disk('games')->get($fref.'index.html');
-          //isolate localStorage
-            //ghettto way?
-            $index = str_replace('localStorage.setItem(\'',
-                                 'localStorage.setItem(\'timesink_'.$this->shortlink.'__',
-                                 $index);
-            $index = str_replace('localStorage.getItem(\'',
-                                 'localStorage.getItem(\'timesink_'.$this->shortlink.'__',
-                                 $index);
-            //in case anyone uses "
-            $index = str_replace('localStorage.setItem("',
-                                 'localStorage.setItem("timesink_'.$this->shortlink.'__',
-                                 $index);
-            $index = str_replace('localStorage.getItem("',
-                                 'localStorage.getItem("timesink_'.$this->shortlink.'__',
-                                 $index);
-          //
-          $index = htmlspecialchars($index);
-
-
-          //later
-          //          return preg_replace( "/\r|\n/", "", $index);
           echo "/games/$fref/index.html";
-          //echo Storage::disk('games')->url($fref.'index.html');
-          //return Storage::disk('games')->url($fref.'index.html');
-
         } else {
           echo 'cant find index';
         }

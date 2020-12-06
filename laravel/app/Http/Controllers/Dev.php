@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 
+use GameCooker;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\File;
@@ -33,45 +35,28 @@ class Dev extends Controller
       //GHETTO INBOUND, CLEANUP LATER
       //modify HTML to suit stuff
       //CONSIDERING EVERYTHING IS VERIFIED
+      //make Whatever::fixLS();
+
       Storage::disk('games')->makeDirectory("/$g->shortlink/$ver");
+
       $isolate = file_get_contents($html);
-      $isolate = str_replace('localStorage.setItem(\'',
-                           'localStorage.setItem(\'timesink_'.$g->shortlink.'__',
-                           $isolate);
-      $isolate = str_replace('localStorage.getItem(\'',
-                           'localStorage.getItem(\'timesink_'.$g->shortlink.'__',
-                           $isolate);
-      //in case anyone uses "
-      $isolate = str_replace('localStorage.setItem("',
-                           'localStorage.setItem("timesink_'.$g->shortlink.'__',
-                           $isolate);
-      $isolate = str_replace('localStorage.getItem("',
-                           'localStorage.getItem("timesink_'.$g->shortlink.'__',
-                           $isolate);
-      file_put_contents($html,$isolate);
+      file_put_contents($html,GameCooker::processLS($isolate, $g->shortlink));
       $path = "/$g->shortlink/$ver";
       Storage::disk('games')->putFileAs($path, $html, 'index.html');
-      foreach ($css as $c) {
-        Storage::disk('games')->putFileAs($path, $c, $c->getClientOriginalName());
+
+      if (isset($css)) {
+        foreach ($css as $c) {
+          Storage::disk('games')->putFileAs($path, $c, $c->getClientOriginalName());
+        }
       }
-      foreach ($js as $j) {
-        unset($isolate);
-        $isolate = file_get_contents($j);
-        $isolate = str_replace('localStorage.setItem(\'',
-                             'localStorage.setItem(\'timesink_'.$g->shortlink.'__',
-                             $isolate);
-        $isolate = str_replace('localStorage.getItem(\'',
-                             'localStorage.getItem(\'timesink_'.$g->shortlink.'__',
-                             $isolate);
-        //in case anyone uses "
-        $isolate = str_replace('localStorage.setItem("',
-                             'localStorage.setItem("timesink_'.$g->shortlink.'__',
-                             $isolate);
-        $isolate = str_replace('localStorage.getItem("',
-                             'localStorage.getItem("timesink_'.$g->shortlink.'__',
-                             $isolate);
-        file_put_contents($j,$isolate);
-        Storage::disk('games')->putFileAs($path, $j, $j->getClientOriginalName());
+
+      if (isset($js)) {
+        foreach ($js as $j) {
+          unset($isolate);
+          $isolate = file_get_contents($j);
+          file_put_contents($j,GameCooker::processLS($isolate, $g->shortlink));
+          Storage::disk('games')->putFileAs($path, $j, $j->getClientOriginalName());
+          }
       }
       return redirect()->back();
     }
