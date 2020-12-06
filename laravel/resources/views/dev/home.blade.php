@@ -1,4 +1,4 @@
-@extends('layout.dev')
+@extends('layout.front')
 @section('title', 'Home')
 @section('content')
   <div>Hello, {{Auth::user()->name}}</div>

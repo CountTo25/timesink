@@ -116,6 +116,10 @@ body {
 
 .header .logo {
   position: absolute;
+  background-image: url(/img/logo.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
   left: 10px;
   height: 100%;
   top: 0px;
@@ -124,7 +128,11 @@ body {
 
 .header .nav {
   text-align: center;
+  width: 60vw;
+  display: inline-block;
+  margin-left: 20vw;
 }
+
 
 .header .navnode {
   margin-left: 10px;
@@ -135,11 +143,8 @@ body {
 
 .header .auth {
   cursor: pointer;
-  position: absolute;
-  right: 5px;
-  top: 0px;
-  height: 100%;
-  width: 50px;
+  display: inline-block;
+  font-size: 16px;
 }
 
 .popup {

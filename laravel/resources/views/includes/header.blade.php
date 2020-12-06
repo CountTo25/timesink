@@ -1,6 +1,8 @@
 <div class='header'>
-  <div class='logo'>
-  </div>
+  <a href='/'>
+    <div class='logo'>
+    </div>
+  </a>
   <div class='nav'>
     <span class='navnode'>All games</span>
     <span class='navnode'>New</span>
@@ -11,14 +13,19 @@
     </div>
   </div>
   <div class='auth'>
-    <span class='clickable'>Log in</span>
+    @if (!Auth::check())
+    <span class='clickable' id='openauth'>Log in</span>
+    @else
+    <span class='navnode'>Logged in as {{Auth::user()->name}}</span>
+    <span class='navnode'><a href='/dev'>/dev</a></span>
+    @endif
   </div>
 </div>
-<div class='auth popup' style='display: none'>
+<div class='auth popup' id='authpopup' style='display: none'>
   <div class='window'>
     <div class='heading'>
       <span>Welcome</span>
     </div>
-    @include('includes.authform');
+    @include('includes.authform')
   </div>
 </div>

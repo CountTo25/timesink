@@ -19,9 +19,6 @@ use App\Http\Controllers\Dev as DevController;
 
 //TODO: cleanup, controllers
 
-Route::get('/', function () {
-    return view('index');
-});
 
 Route::get('/play/{game}', function ($game) {
   $game = Game::where('shortlink', $game)->first();
@@ -42,6 +39,10 @@ Route::post('/auth', function(Request $request) {
     echo 'err';
   }
 });
+
+
+Route::get('/', function () {return view('index');});
+
 
 Route::middleware(['auth'])->group(function(){
   Route::get('/dev', [DevController::class, 'home']);

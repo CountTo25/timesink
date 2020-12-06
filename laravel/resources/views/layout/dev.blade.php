@@ -2,7 +2,6 @@
   <head>
     <title>
       @yield('title')
-      at timesink
     </title>
     <link href="/css/main.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Rubik+Mono+One&display=swap" rel="stylesheet">
@@ -12,6 +11,9 @@
 			 crossorigin="anonymous"></script>
   </head>
   <body>
+    <div class='devheader'>
+      <a href='/dev'>Your games</a>
+    </div>
     <div class='content'>
       @yield('content')
     </div>
