@@ -38,6 +38,8 @@ return [
         'games' => [
           'driver' => 'local',
           'root' => storage_path('games'),
+          'visibility' => 'public',
+          'url' => env('APP_URL').'/games',
         ],
 
         'public' => [
@@ -72,6 +74,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('games') => storage_path('games'),
     ],
 
 ];

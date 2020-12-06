@@ -1,3 +1,13 @@
+
+* {
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Roboto', sans-serif;
+}
+
 .gameheader {
 
 }
@@ -12,7 +22,7 @@
 
 .gameheader .gametitle{
   font-size: 32px;
-  color: var(--main);
+  color: var(--important);
 }
 
 .gameheader {
@@ -35,6 +45,21 @@
 
 }
 
+.gamecard {
+  display: inline-block;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: var(--main);
+  width: 250px;
+  height: 300px;
+  text-align: center;
+}
+
+.gamecard .title {
+  font-size: 24px;
+  color: var(--bg);
+}
+
 .gameinner {
   width: 100%;
   height: 100%;
@@ -45,10 +70,12 @@
   width: 100%;
   height: 100%;
   border: none;
+  border-radius: 5px;
+  background-color: var(--bg);
 }
 
 .sidebar {
-  width: 10vw;
+  width: 20vw;
   background-color: var(--text);
   border-radius: 0px 5px 5px 0px;
   height: 700px;
@@ -58,16 +85,119 @@
 }
 
 
-* {
-  font-family: 'Roboto', sans-serif;
-  background-color: var(--bg);
-  color: var(--text);
-}
 
 :root {
-  --main: #5B2333;
-  --bg: #F7F4F3;
-  --text: #564D4A;
-  --bright: #F24333;
-  --important: #BA1B1D;
+  --main: #102B3F;
+  --bg: #EDF7F6;
+  --text: #273E47;
+  --bright: #F19953;
+  --important: #1A936F;
+  --darker: #564D4A;
+}
+
+.header {
+  position: fixed;
+  top: 0px;
+  width: 100vw;
+  padding: 5px;
+  border-bottom: 2px solid var(--main);
+  left: 0px;
+}
+
+.content {
+  margin-top: 60px;
+}
+
+.header .nav span, .header .nav div {
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+.header .logo {
+  position: absolute;
+  left: 10px;
+  height: 100%;
+  top: 0px;
+  width: 50px;
+}
+
+.header .nav {
+  text-align: center;
+}
+
+.header .navnode {
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.header .auth {
+  cursor: pointer;
+  position: absolute;
+  right: 5px;
+  top: 0px;
+  height: 100%;
+  width: 50px;
+}
+
+.popup {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+  background-color: #00000090
+}
+
+.window .heading {
+  border-radius: 5px 5px 0px 0px;
+  background-color: var(--bg);
+  text-align: center;
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+}
+
+.popup .window {
+  left: calc(50vw - 200px);
+  top: 10vh;
+  position: fixed;
+}
+
+.gameupdateform input {
+  display: block;
+}
+
+.window .main {
+  color: var(--bg);
+  background-color: var(--main);
+  border-radius: 0px 0px 5px 5px;
+  padding: 5px;
+}
+
+.window .main.form input {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  border: none;
+  height: 32px;
+  font-size: 20px;
+}
+
+.window .heading span {
+  font-size: 24px;
+  color: var(--main);
+}
+
+.window {
+  width: 400px;
+}
+
+
+.find input {
+  border: none;
+  font-size: 16px;
 }

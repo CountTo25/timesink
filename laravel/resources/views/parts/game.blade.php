@@ -1,4 +1,3 @@
-<div>
   <div class='gameheader'>
     @if ($game->banner)
 
@@ -8,6 +7,7 @@
   <div class='gamecontainer'>
     <!--Game goes here-->
     <div class='gameinner'>
+      <!-- sandbox later-->
       <iframe id='gameframe'>
         <?php $game->view(); ?>
       </iframe>
@@ -16,16 +16,13 @@
     info
   </div>
   <div class='under'></div>
-</div>
 
 <script>
 $(document).ready(()=>{
-  var context = $('iframe')[0].contentWindow.document,
-      $gamebody = $('body', context),
-      gamestruct = '{{ $game->view() }}';
-  $gamebody.html(unescapeHtml(gamestruct));
+  $('#gameframe').attr('src', '{{$game->view()}}');
 });
 
+//clean up?
 function unescapeHtml(safe) {
     return safe.replace(/&amp;/g, '&')
         .replace(/&lt;/g, '<')

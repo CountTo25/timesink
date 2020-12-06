@@ -12,10 +12,6 @@
 			 crossorigin="anonymous"></script>
   </head>
   <body>
-    @include('includes.header')
-    @if (Auth::check())
-      <span>Logged in as {{Auth::user()->name}}</span>
-    @endif
     <div class='content'>
       @yield('content')
     </div>

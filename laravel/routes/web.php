@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Game;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Dev as DevController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +17,8 @@ use App\Models\Game;
 |
 */
 
+//TODO: cleanup, controllers
+
 Route::get('/', function () {
     return view('index');
 });
@@ -20,4 +26,25 @@ Route::get('/', function () {
 Route::get('/play/{game}', function ($game) {
   $game = Game::where('shortlink', $game)->first();
   return view('gamepage')->with('game', $game);
+});
+
+Route::get('/auth', function(){view('includes.authform');})->name('login');
+
+Route::post('/auth', function(Request $request) {
+  $cred = $request->only('email', 'password');
+  if (Auth::attempt($cred)) {
+    if (Auth::user()->group=='admin') {
+      return redirect('/admin');
+    } else {
+      return redirect('/');
+    }
+  } else {
+    echo 'err';
+  }
+});
+
+Route::middleware(['auth'])->group(function(){
+  Route::get('/dev', [DevController::class, 'home']);
+  Route::get('/dev/game/{id}', [DevController::class, 'game']);
+  Route::post('dev/game/{id}/update', [DevController::class, 'pushUpdate']);
 });
