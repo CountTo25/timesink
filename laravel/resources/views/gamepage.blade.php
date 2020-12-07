@@ -1,5 +1,5 @@
 @extends('layout.front')
-@section('title', $game->shortlink)
+@section('title', $game->name)
 @section('content')
   @include('parts.apiwrapper')
   @include('parts.game')

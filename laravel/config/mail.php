@@ -32,7 +32,7 @@ return [
     |            "postmark", "log", "array"
     |
     */
-
+    //
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',

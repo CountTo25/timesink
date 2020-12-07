@@ -2,7 +2,8 @@
     @if ($game->banner)
 
     @endif
-    <span>Play <span class='gametitle'>{{$game->name}}</span> @ timesink</span>
+    <span>Play <span class='gametitle'>{{$game->name}}</span> @ timesink</span></br>
+    <span>Made by {{$game->owner()->name}}</span>
   </div>
   <div class='gamecontainer'>
     <!--Game goes here-->

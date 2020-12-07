@@ -17,12 +17,15 @@
     <span class='clickable' id='openauth'>Log in</span>
     @else
     <span class='navnode'>Logged in as {{Auth::user()->name}}</span>
-    <span class='navnode'><a href='/dev'>/dev</a></span>
+      @if (Auth::user()->isDev())
+        <span class='navnode'><a href='/dev'>/dev</a></span>
+      @endif
+      <span class='navnode'><a href='/logout'>Logout</a></span>
     @endif
   </div>
 </div>
 <div class='auth popup' id='authpopup' style='display: none'>
-  <div class='window'>
+  <div class='window' id='popupwindow'>
     <div class='heading'>
       <span>Welcome</span>
     </div>

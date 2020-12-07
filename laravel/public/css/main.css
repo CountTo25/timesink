@@ -52,6 +52,9 @@ body {
   background-color: var(--main);
   width: 250px;
   height: 300px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
@@ -95,13 +98,29 @@ body {
   --darker: #564D4A;
 }
 
+.ts-welcome h1{
+  text-align: center;
+  font-size: 32px;
+}
+
+.ts-welcome p {
+  font-size: 18px;
+  margin-top: 0px;
+  line-height: 18px;
+  margin-bottom: 2px;
+}
+
+.ts-welcome {
+  margin-bottom: 20px;
+}
+
 .header {
   position: fixed;
   top: 0px;
   width: 100vw;
   padding: 5px;
-  border-bottom: 2px solid var(--main);
   left: 0px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
 }
 
 .content {
@@ -116,7 +135,7 @@ body {
 
 .header .logo {
   position: absolute;
-  background-image: url(/img/logo.png);
+  background-image: url(/logo.png);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -165,10 +184,10 @@ body {
   border-radius: 5px 5px 0px 0px;
   background-color: var(--bg);
   text-align: center;
-  padding-top: 5px;
+  padding-top: 20px;
   padding-left: 5px;
   padding-right: 5px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 }
 
 .popup .window {
@@ -195,7 +214,43 @@ body {
   border: none;
   height: 32px;
   font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
+
+.helper .left, .helper .right {
+  display: inline-block; width: 49%;
+}
+
+.form.middle {
+  text-align: center;
+}
+
+.form.middle button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.form .helper a {
+  text-decoration: none;
+  color: var(--bg);
+  font-size: 18px;
+}
+
+.helper .left {
+  text-align: left;
+}
+
+.helper .right {
+  text-align: right;
+}
+
+.window .main.form form {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
 
 .window .heading span {
   font-size: 24px;

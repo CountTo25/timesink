@@ -51,6 +51,8 @@ class GameProcessor
           if (strpos($gamefile, 'index.html')!==false) {
             $toFix = Storage::disk('games')->get($gamefile);
             $toFix = GameProcessor::addAPI($toFix);
+            $toFix = GameProcessor::processLS($toFix, $shortlink);
+            echo 'processed localStorage calls';
             Storage::disk('games')->put($gamefile, $toFix);
             echo 'added API';
           }

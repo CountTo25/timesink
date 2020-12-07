@@ -54,6 +54,12 @@ class Dev extends Controller
       $f = $request->package;
       GameCooker::unzipGame($f, $request->shortlink, '1');
 
+      //setup content holders
+      Storage::disk('games')->makeDirectory($request->shortlink.'/docs');
+      if ($request->file('pic')) {
+        Storage::disk('games')->putFileAs($request->shortlink.'/docs', $request->file('pic'), 'banner.png');
+      }
+
       $g->save();
     }
 }

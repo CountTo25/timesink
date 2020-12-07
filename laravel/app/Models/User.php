@@ -40,4 +40,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    function generateVerifyToken() {
+      $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $charactersLength = strlen($characters);
+      $randomString = '';
+      for ($i = 0; $i < 16; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+      }
+      $this->verify_token = $randomString;
+      $this->save();
+    }
+
+    function isDev() {
+      if ($this->role == 'admin' || $this->role == 'dev') return true;
+      else  return false;
+    }
 }
