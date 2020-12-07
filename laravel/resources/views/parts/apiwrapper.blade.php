@@ -1,4 +1,5 @@
 <script>
+console.log('loading timesinkAPI');
 class TSAPI {
   consctructor() {
     console.log('API ready');
@@ -33,4 +34,5 @@ class TSAPI {
 }
 
 var timesinkAPI = new TSAPI();
+console.log('loaded timesinkAPI');
 </script>

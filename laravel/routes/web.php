@@ -50,12 +50,14 @@ Route::get('/', function () {return view('index');});
 Route::middleware(['auth'])->group(function(){
   Route::get('/dev', [DevController::class, 'home']);
   Route::get('/dev/game/{id}', [DevController::class, 'game']);
+  Route::get('/dev/upload/new', [DevController::class, 'newgame']);
+  Route::post('/dev/upload/new', [DevController::class, 'postnewgame']);
   Route::post('dev/game/{id}/update', [DevController::class, 'pushUpdate']);
 });
 
-Route::get('/clientapi/{method}', ClientApiController::class);
-Route::post('/clientapi/{method}', ClientApiPostController::class);
 
-Route::middleware(['auth'])->group(function() {
-  //TODO: auth-soft without redirect to auth
+
+Route::middleware(['throttle:5,1'])->group(function() {
+  Route::post('/clientapi/{method}', ClientApiPostController::class);
 });
+Route::get('/clientapi/{method}', ClientApiController::class);

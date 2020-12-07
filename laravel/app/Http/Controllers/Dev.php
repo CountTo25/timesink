@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 
 use GameCooker;
+use ZipArchive;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,38 +29,31 @@ class Dev extends Controller
     public function pushUpdate(Request $request, $id) {
       $g = Game::where('id', $id)->first();
       if ($g->owner != Auth::user()->id) return 'nope';
-      $ver = $g->newVersion();
-      $html = $request->html;
-      $css = $request->css;
-      $js = $request->js;
-      //GHETTO INBOUND, CLEANUP LATER
-      //modify HTML to suit stuff
-      //CONSIDERING EVERYTHING IS VERIFIED
-      //make Whatever::fixLS();
-
-      Storage::disk('games')->makeDirectory("/$g->shortlink/$ver");
-
-      $isolate = file_get_contents($html);
-      $isolate = GameCooker::processLS($isolate, $g->shortlink);
-      $isolate = GameCooker::addAPI($isolate);
-      file_put_contents($html,GameCooker::processLS($isolate, $g->shortlink));
-      $path = "/$g->shortlink/$ver";
-      Storage::disk('games')->putFileAs($path, $html, 'index.html');
-
-      if (isset($css)) {
-        foreach ($css as $c) {
-          Storage::disk('games')->putFileAs($path, $c, $c->getClientOriginalName());
-        }
-      }
-
-      if (isset($js)) {
-        foreach ($js as $j) {
-          unset($isolate);
-          $isolate = file_get_contents($j);
-          file_put_contents($j,GameCooker::processLS($isolate, $g->shortlink));
-          Storage::disk('games')->putFileAs($path, $j, $j->getClientOriginalName());
-          }
-      }
+      $f = $request->package;
+      GameCooker::unzipGame($f, $g->shortlink, ($g->version+1));
+      $g->newVersion();
       return redirect()->back();
+    }
+
+    public function newgame(Request $request) {
+      return view('dev.newgame');
+    }
+
+    public function postnewgame(Request $request) {
+      //TODO: move unzip to cooker DONE keep to remember
+      if ($request->package->getClientOriginalExtension() <> 'zip')
+        return redirect('/dev/upload/new')->with('error','Not a .zip file');
+      if (Game::where('shortlink', $request->shortlink)->first())
+        return redirect('/dev/upload/new')->with('error','Shortlink already occupied');
+      $g = new Game();
+      $g->shortlink = $request->shortlink;
+
+      $g->name = $request->game_name;
+      $g->owner = Auth::user()->id;
+
+      $f = $request->package;
+      GameCooker::unzipGame($f, $request->shortlink, '1');
+
+      $g->save();
     }
 }
