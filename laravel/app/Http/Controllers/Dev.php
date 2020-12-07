@@ -32,7 +32,7 @@ class Dev extends Controller
       $f = $request->package;
       GameCooker::unzipGame($f, $g->shortlink, ($g->version+1));
       $g->newVersion();
-      return redirect()->back();
+      //return redirect()->back();
     }
 
     public function newgame(Request $request) {
