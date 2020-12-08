@@ -28,6 +28,12 @@ class GameProcessor
       $rx = '/localStorage\.(?!(setItem|getItem))/';
       $nstring = "localStorage.timesink__$shortlink"."_";
       $isolate = preg_replace($rx, $nstring, $isolate);
+      $rx = '/localStorage\.setItem\((?!('."'".'|"))/';
+      $nstring = 'localStorage.setItem("timesink__'.$shortlink.'_"+';
+      $isolate = preg_replace($rx, $nstring, $isolate);
+      $rx = '/localStorage\.getItem\((?!('."'".'|"))/';
+      $nstring = 'localStorage.getItem("timesink__'.$shortlink.'_"+';
+      $isolate = preg_replace($rx, $nstring, $isolate);
       return $isolate;
     }
 
