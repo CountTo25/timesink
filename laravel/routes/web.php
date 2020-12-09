@@ -90,6 +90,7 @@ Route::middleware(['auth', 'dev'])->group(function(){
   Route::get('/dev/upload/new', [DevController::class, 'newgame']);
   Route::post('/dev/game/{id}/snatchgit', [DevController::class, 'snatchgit']);
   Route::post('/dev/upload/new', [DevController::class, 'postnewgame']);
+  Route::post('/dev/upload/newfromgit', [DevController::class, 'newgamegit']);
   Route::post('dev/game/{id}/update', [DevController::class, 'pushUpdate']);
   Route::post('dev/game/{id}/img', [DevController::class, 'postupdatepic']);
 });

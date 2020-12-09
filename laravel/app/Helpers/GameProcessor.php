@@ -52,6 +52,8 @@ class GameProcessor
         $z->extractTo(Storage::disk('games')->getDriver()->getAdapter()->getPathPrefix().$shortlink.'/'.$ver);
         $z->close();
 
+        $hasAPIsave = false;
+
         $all = Storage::disk('games')->allFiles("$shortlink/$ver/");
         foreach ($all as $gamefile) {
           if (strpos($gamefile, 'index.html')!==false) {
@@ -80,6 +82,8 @@ class GameProcessor
         $dir = Storage::disk('games')->directories("$shortlink/$version/");
         $trashfolder = basename($dir[0]);
         $messages[] = 'found directory named '.$trashfolder;
+        print_r('found directory named '.$trashfolder);
+        print_r($dir);
         $all = Storage::disk('games')->allFiles("$shortlink/$version/");
           foreach ($all as $gamefile) {
             $clean = str_replace("/$trashfolder", "", $gamefile);

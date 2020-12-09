@@ -20,16 +20,123 @@
   margin-left:10px;
 }
 
+.dev.newgame {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: var(--bg);
+  background-color: var(--text);
+  border-radius: 5px;
+}
+
+.dev.newgame a {
+  color: var(--text);
+background: var(--bg);
+padding: 10px;
+font-size: 18px;
+border-radius: 5px;
+text-decoration: none;
+margin-left: 5px;
+margin-right: 5px;
+}
+
+.updateholder {
+  background: var(--text);
+  border-radius: 5px;
+  padding: 5px;
+  width: 300px;
+}
+
+.updateheader {
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--bg);
+}
+
+.updateheader span {
+  font-size: 24px;
+  color: var(--bg);
+}
+
+.toggleupdatemode {
+  margin-bottom: 20px;
+}
+
+.toggleupdatemode input {
+  display: none;
+}
+
+.formwrap {
+
+}
+
+.updateholder .gameupdateform input:not([type=file]) {
+  width: 100%;
+  border: none;
+  padding: 5px;
+  font-size: 18px;
+  font-family: 'Roboto',sans-serif;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.toggleupdatemode label {
+  padding: 5px;
+  background: var(--text);
+  color: var(--bg);
+  width: 138px;
+  display: inline-block;
+  transition: 0.2s all;
+}
+
+.updateholder {
+
+}
+
+.devblock {
+  margin: 10px !important;
+}
+
+.toggleupdatemode input:not(:checked) + label {
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+}
+
 
 .dev.gameupdate, .dev.generalsettings {
   display:inline-block;
-  width: 49vw;
   vertical-align: top;
+}
+
+.formcontainer label {
+  color: var(--bg);
 }
 
 a.nostyle {
   color: var(--text);
   text-decoration: none;
+}
+
+.fileinput {
+  display: none !important;
+}
+
+input.btn {
+  cursor: pointer;
+}
+
+.fileinput + label {
+    color: var(--text);
+    background-color: var(--bg);
+    display: block;
+    font-size: 18px;
+    text-align: center;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
 }
 
 .devlog {
@@ -48,8 +155,8 @@ a.nostyle {
 }
 
 .fullog {
-  max-height: 100px;
-  overflow-y: scroll;
+  height: 100px;
+  overflow-y: auto;
   font-size: 16px;
 }
 
