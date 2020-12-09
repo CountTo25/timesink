@@ -8,12 +8,41 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.gameheader {
+.overlay-toggle {
+  float: right;
+  font-size: 25px;
+}
 
+.gameimg {
+  height: 150px;
+}
+
+.maxwrapper {
+  height: calc(100vh - 60px);
+  background: var(--text);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.gameheader {
+  background-color: var(--text);
+  color: var(--bg);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  height: 50px;
+  padding: 5px;
+}
+
+.gamecontainer {
+  height: calc(100vh - 150px);
+  background-color: var(--text);
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: calc(100% - 10px);
 }
 
 .gameheader div {
-  display: inline-block;
 }
 
 .gameheader span {
@@ -25,25 +54,9 @@ body {
   color: var(--important);
 }
 
-.gameheader {
-  text-align: center;
-}
 
 
-.gamecontainer, .sidebar {
-  display: inline-block;
-}
 
-.gamecontainer {
-  width: 50vw;
-  height: 700px;
-  margin-left: 25vw;
-  background-color: var(--text);
-  margin-top: 50px;
-  padding: 5px;
-  border-radius: 5px 0px 0px 5px;
-
-}
 
 .gamecard {
   display: inline-block;

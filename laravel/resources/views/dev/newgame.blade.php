@@ -1,4 +1,4 @@
-@extends('layout.front')
+@extends('layout.dev')
 @section('title', 'Home')
 @section('content')
   <div><span>Upload new game</span></div>

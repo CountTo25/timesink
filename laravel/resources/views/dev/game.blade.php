@@ -1,16 +1,34 @@
-@extends('layout.front')
-@section('title', 'Home')
+@extends('layout.dev')
+@section('title', '/dev/'.$g->shortlink)
 @section('content')
-  <div><span>{{$g->name}}</span></div>
+  <div class='dev h'>
+    <span class='dtitle'>{{$g->name}}</span>
+    <a class='nostyle' href="{{URL::to('/')}}/play/{{$g->shortlink}}">{{URL::to('/')}}/play/{{$g->shortlink}}</span></a>
+
+  </div>
+  <div class='dev generalsettings'>
+    <span class='dsubtitle'>Settings</span></br>
+    <span class='block'>Preview picture</span></br>
+    <div class='settingsblock'>
+      <form class='gameupdateform' action="/dev/game/{{$g->id}}/img" method="post"  enctype="multipart/form-data">
+        @csrf
+        <input class='inputfile' type='file' name='bannerpic' accept='image/jpeg,image/png'>
+        <input class='btn' type='submit' value='Update'>
+      </form>
+    </div>
+
+  </div>
   <div class='dev gameupdate'>
-    <p>Ready for a new update?</p>
+    <span class='dsubtitle'>New update</span></br>
     <!-- rolldown later, plain now -->
     <!-- dont forget to create upload guidelines later -->
-    <form class='gameupdateform' action="/dev/game/{{$g->id}}/update" method="post"  enctype="multipart/form-data">
-      @csrf
-      <label for='html'>game.zip</label>
-      <input type="file" name="package" accept=".zip" required>
-      <input type='submit' value='push an update'>
-    </form>
+    <div class='settingsblock'>
+      <form class='gameupdateform' action="/dev/game/{{$g->id}}/update" method="post"  enctype="multipart/form-data">
+        @csrf
+        <label for='html'>.zip with game</label>
+        <input type="file" name="package" accept=".zip" required>
+        <input class='btn' type='submit' value='push an update'>
+      </form>
+    </div>
   </div>
 @endsection

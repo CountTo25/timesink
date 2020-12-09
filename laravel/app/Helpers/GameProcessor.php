@@ -42,7 +42,7 @@ class GameProcessor
       return $gfile;
     }
 
-    public static function unzipGame($f, $shortlink, $ver) {
+    public static function unzipGame($f, $shortlink, $ver, &$messages) {
       //TODO: return true/false;
       //TODO: remove git (X-master);
       $fref = "/$shortlink/$ver";
@@ -55,25 +55,23 @@ class GameProcessor
         $all = Storage::disk('games')->allFiles("$shortlink/$ver/");
         foreach ($all as $gamefile) {
           if (strpos($gamefile, 'index.html')!==false) {
+            $messages[] = 'Found index.html';
             $toFix = Storage::disk('games')->get($gamefile);
             $toFix = GameProcessor::addAPI($toFix);
+            $messages[] = '   Injected API @ index.html';
             $toFix = GameProcessor::processLS($toFix, $shortlink);
-            echo 'processed localStorage calls';
+            $messages[] = '   Isolated localStorage @ index.html';
             Storage::disk('games')->put($gamefile, $toFix);
-            echo 'added API';
           }
           if (strpos($gamefile, '.js')!==false) {
+            $messages[] = 'Found '.basename($gamefile);
             $toFix = Storage::disk('games')->get($gamefile);
             $toFix = GameProcessor::processLS($toFix, $shortlink);
+            $messages[] = '   Isolated localStorage @'.basename($gamefile);
             Storage::disk('games')->put($gamefile, $toFix);
-            echo 'checked JS';
           }
         }
-        print_r($all);
-        echo 'ok';
-        return response()->json(['success' => 'Game uploaded @ '.$shortlink]);
-      } else {
-        return response()->json(['error' => 'Failed to process file']);
+        $messages[] = 'Game uploaded @ '.$shortlink;
       }
     }
 }

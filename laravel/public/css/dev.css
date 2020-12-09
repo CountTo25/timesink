@@ -1,0 +1,58 @@
+.dev.h span{
+  display: block;
+}
+
+.dev.h {
+  margin-bottom: 50px;
+}
+
+.dtitle {
+  display: block;
+  font-size: 36px;
+}
+
+.dsubtitle {
+  display: block;
+  font-size: 28px;
+}
+
+.settingsblock {
+  margin-left:10px;
+}
+
+
+.dev.gameupdate, .dev.generalsettings {
+  display:inline-block;
+  width: 49vw;
+  vertical-align: top;
+}
+
+a.nostyle {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.devlog {
+  margin: 10px;
+  border-radius: 5px;
+  padding: 5px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: 'Roboto Mono', monospace;
+}
+
+.devlog .top {
+  text-align: center;
+  border-bottom: 1px solid var(--bg);
+  font-size: 20px;
+}
+
+.fullog {
+  max-height: 100px;
+  overflow-y: scroll;
+  font-size: 16px;
+}
+
+.fullog span{
+  display: block;
+}

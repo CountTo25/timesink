@@ -2,9 +2,7 @@
 if (!isset($g)) return 'kek';
 ?>
 
-<a href='/dev/game/{{$g->id}}'>
-<div class='gamecard'>
-  <div class='gameimg'></div>
+<a href='/dev/game/{{$g->id}}'><div class='gamecard'>
   <span class='title'>{{$g->name}}<span>
-</div>
-</a>
+  <div class='gameimg'></div>
+</div></a>

@@ -27,12 +27,17 @@ class Dev extends Controller
     }
 
     public function pushUpdate(Request $request, $id) {
+      $msgstack = [];
       $g = Game::where('id', $id)->first();
-      if ($g->owner != Auth::user()->id) return 'nope';
+      if ($g->owner != Auth::user()->id) {
+        $msgstack[] = 'Thats not your game, smartass';
+        return back()->with('messages', $msgstack);
+      }
       $f = $request->package;
-      GameCooker::unzipGame($f, $g->shortlink, ($g->version+1));
+      GameCooker::unzipGame($f, $g->shortlink, ($g->version+1), $msgstack);
       $g->newVersion();
-      //return redirect()->back();
+      $msgstack[] = 'Version bump -> '.$g->version;
+      return back()->with('messages', $msgstack);
     }
 
     public function newgame(Request $request) {
@@ -41,25 +46,55 @@ class Dev extends Controller
 
     public function postnewgame(Request $request) {
       //TODO: move unzip to cooker DONE keep to remember
-      if ($request->package->getClientOriginalExtension() <> 'zip')
-        return redirect('/dev/upload/new')->with('error','Not a .zip file');
-      if (Game::where('shortlink', $request->shortlink)->first())
-        return redirect('/dev/upload/new')->with('error','Shortlink already occupied');
+      $msgstack = [];
+      if ($request->package->getClientOriginalExtension() <> 'zip') {
+        $msgstack[] = 'Not a .zip file';
+        return redirect('/dev/upload/new')->with('messages',$msgstack);
+      }
+      if (Game::where('shortlink', $request->shortlink)->first()) {
+        $msgstack[] = 'Shortlink already occupied';
+        return redirect('/dev/upload/new')->with('messages',$msgstack);
+      }
+      $msgstack[] = 'Creating new game entry...';
       $g = new Game();
       $g->shortlink = $request->shortlink;
-
       $g->name = $request->game_name;
       $g->owner = Auth::user()->id;
 
       $f = $request->package;
-      GameCooker::unzipGame($f, $request->shortlink, '1');
+      $msgstack[] = 'Unzipping game...';
+      GameCooker::unzipGame($f, $request->shortlink, '1', $msgstack);
 
-      //setup content holders
       Storage::disk('games')->makeDirectory($request->shortlink.'/docs');
       if ($request->file('pic')) {
         Storage::disk('games')->putFileAs($request->shortlink.'/docs', $request->file('pic'), 'banner.png');
       }
 
       $g->save();
+      $msgstack[] = 'Saved game entry';
+      $msgstack[] = 'Finished!';
+      return back()->with('messages', $msgstack);
+    }
+
+    public function postupdatepic(Request $request, $id) {
+      $msgstack = [];
+      $g = Game::where('id', $id)->first();
+      if ($g->owner != Auth::user()->id) {
+        $msgstack[] = 'Thats not your game, smartass';
+        return back()->with('messages', $msgstack);
+      }
+
+      if (!$request->file('bannerpic')) {
+        $msgstack[] = 'No file passed';
+        return back()->with('messages', $msgstack);
+      }
+
+      $msgstack[] = 'Trying to upload...';
+
+      Storage::disk('games')
+        ->putFileAs($g->shortlink.'/docs/', $request->file('bannerpic'), 'banner.png');
+
+      $msgstack[] = 'Upload successfull';
+      return back()->with('messages', $msgstack);
     }
 }

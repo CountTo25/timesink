@@ -23,6 +23,10 @@ class Game extends Model
       return $this->version;
     }
 
+    function bannerlink() {
+      return "/games/$this->shortlink/docs/banner.png";
+    }
+
     function view() {
       //shows game for player
       $fref = "$this->shortlink/$this->version";

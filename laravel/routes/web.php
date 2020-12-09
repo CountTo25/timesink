@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Mail;
 
 //TODO: cleanup, controllers
 
-
 Route::get('/play/{game}', function ($game) {
   $game = Game::where('shortlink', $game)->first();
   return view('gamepage')->with('game', $game);
@@ -91,6 +90,7 @@ Route::middleware(['auth', 'dev'])->group(function(){
   Route::get('/dev/upload/new', [DevController::class, 'newgame']);
   Route::post('/dev/upload/new', [DevController::class, 'postnewgame']);
   Route::post('dev/game/{id}/update', [DevController::class, 'pushUpdate']);
+  Route::post('dev/game/{id}/img', [DevController::class, 'postupdatepic']);
 });
 
 Route::middleware(['auth'])->group(function(){
