@@ -74,4 +74,19 @@ class GameProcessor
         $messages[] = 'Game uploaded @ '.$shortlink;
       }
     }
+
+    public static function cleanupgit($shortlink, $version, &$messages) {
+        $messages[] = 'cleaning up github stuff';
+        $dir = Storage::disk('games')->directories("$shortlink/$version/");
+        $trashfolder = basename($dir[0]);
+        $messages[] = 'found directory named '.$trashfolder;
+        $all = Storage::disk('games')->allFiles("$shortlink/$version/");
+          foreach ($all as $gamefile) {
+            $clean = str_replace("/$trashfolder", "", $gamefile);
+            $messages[] = "Moving $gamefile to $clean";
+            Storage::disk('games')
+              ->move($gamefile, $clean);
+          }
+        Storage::disk('games')->deleteDirectory($dir[0]);
+    }
 }

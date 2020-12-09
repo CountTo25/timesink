@@ -101,4 +101,48 @@ class Dev extends Controller
       $msgstack[] = 'Upload successfull';
       return back()->with('messages', $msgstack);
     }
+
+    public function snatchgit(Request $request, $id) {
+      $g = Game::where('id', $id)->first();
+      $msgstack = [];
+      if (!$request->username) {
+        $msgstack[] = 'No github username specified';
+        return back()->with('messages', $msgstack);
+      }
+      if (!$request->repo) {
+        $msgstack[] = 'No repo name specified';
+        return back()->with('messages', $msgstack);
+      }
+      $url="https://api.github.com/repos/$request->username/$request->repo/zipball";
+      $msgstack[] = 'Getting repo @ '.$url;
+      $agent = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)';
+      //https://api.github.com/repos/countto25/queslarqqol/releases
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_SSLVERSION,CURL_SSLVERSION_TLSv1_2);
+      curl_setopt($ch, CURLOPT_USERAGENT, $agent);
+      $data = curl_exec ($ch);
+      $error = curl_error($ch);
+      curl_close ($ch);
+      $decode = json_decode($data, true);
+      if (gettype($decode) == 'array') {
+          $msgstack[] = 'Nothing found. Check either username or repo';
+          return back()->with('messages', $msgstack);
+      }
+
+      $file = fopen(Storage::disk('games')->getDriver()->getAdapter()->getPathPrefix().$g->shortlink.'/gitzip.zip', "w+");
+      fputs($file, $data);
+      fclose($file);
+      $msgstack[] = 'Got zipball from git';
+      $g->newVersion();
+
+      $msgstack[] = 'Version bump -> '.$g->version;
+      $f = Storage::disk('games')->getDriver()->getAdapter()->getPathPrefix().$g->shortlink.'/gitzip.zip';
+      GameCooker::unzipGame($f, $g->shortlink, $g->version, $msgstack);
+      GameCooker::cleanupgit($g->shortlink, $g->version, $msgstack);
+      return back()->with('messages', $msgstack);
+    }
 }

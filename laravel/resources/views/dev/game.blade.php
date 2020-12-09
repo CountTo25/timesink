@@ -30,5 +30,17 @@
         <input class='btn' type='submit' value='push an update'>
       </form>
     </div>
+    <span class='dsubtitle'>Update from git</span></br>
+    <div class='settingsblock'>
+      <form class='gameupdateform' action="/dev/game/{{$g->id}}/snatchgit" method="post"  enctype="multipart/form-data">
+        @csrf
+        <label for='html'>github username</label>
+        <input name='username'>
+        <label for='test'>github repo name</label>
+        <input name='repo'>
+        <input class='btn' type='submit' value='push an update'>
+      </form>
+    </div>
+  </div>
   </div>
 @endsection
