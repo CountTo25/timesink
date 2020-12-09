@@ -33,6 +33,10 @@ class Dev extends Controller
         $msgstack[] = 'Thats not your game, smartass';
         return back()->with('messages', $msgstack);
       }
+      if ($request->package->getClientOriginalExtension() <> 'zip') {
+        $msgstack[] = 'Not a .zip file';
+        return back()->with('messages',$msgstack);
+      }
       $f = $request->package;
       GameCooker::unzipGame($f, $g->shortlink, ($g->version+1), $msgstack);
       $g->newVersion();

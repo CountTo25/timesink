@@ -8,9 +8,6 @@ class TSAPI {
     let request = new XMLHttpRequest();
     request.open('POST', '/clientapi/cloudsave', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    let toSend = {
-      'savedata': data,
-    };
     request.send('savedata='+JSON.stringify(data));
   }
 
